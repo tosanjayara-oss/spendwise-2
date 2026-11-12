@@ -10,13 +10,17 @@ import {
   Plus,
   AlertCircle,
   X,
-  Calendar
+  Calendar,
+  FileText,
+  Paperclip
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import transactionService from '../services/transactionService';
 import { Transaction, Category } from '../types';
 import { formatCurrency, formatDate } from '../utils/formatters';
 import TransactionModal from '../components/transactions/TransactionModal';
+import ReceiptModal from '../components/transactions/ReceiptModal';
+import { generateMonthlyPDFStatement } from '../utils/pdfGenerator';
 
 export const Transactions: React.FC = () => {
   const { currency, currencySymbol, refreshTrigger, triggerRefresh, addToast, openQuickAdd } = useApp();
@@ -38,10 +42,49 @@ export const Transactions: React.FC = () => {
   const [limit, setLimit] = useState<number>(8);
   const [paginationInfo, setPaginationInfo] = useState({ total: 0, totalPages: 1 });
 
-  // Modal & Deletion states
+  // Modal & Deletion & Receipt states
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [viewingReceiptTransaction, setViewingReceiptTransaction] = useState<Transaction | null>(null);
+  const [activeDateQuickFilter, setActiveDateQuickFilter] = useState<'all' | 'today' | 'week' | 'month'>('all');
+
+  const { profile } = useApp();
+
+  const handleQuickDateFilter = (type: 'all' | 'today' | 'week' | 'month') => {
+    setActiveDateQuickFilter(type);
+    setPage(1);
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+
+    if (type === 'today') {
+      setStartDate(todayStr);
+      setEndDate(todayStr);
+    } else if (type === 'week') {
+      const pastWeek = new Date(today);
+      pastWeek.setDate(pastWeek.getDate() - 7);
+      setStartDate(pastWeek.toISOString().split('T')[0]);
+      setEndDate(todayStr);
+    } else if (type === 'month') {
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      setStartDate(`${year}-${month}-01`);
+      setEndDate(todayStr);
+    } else {
+      setStartDate('');
+      setEndDate('');
+    }
+  };
+
+  const handleExportPDF = () => {
+    generateMonthlyPDFStatement({
+      monthName: startDate && endDate ? `${startDate} to ${endDate}` : 'Complete Ledger Statement',
+      transactions,
+      userProfile: profile,
+      currency,
+      currencySymbol
+    });
+  };
 
   useEffect(() => {
     const fetchCats = async () => {
@@ -186,20 +229,31 @@ export const Transactions: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={handleExportPDF}
+            className="flex items-center gap-2 px-3.5 py-2 bg-emerald-950/60 dark:bg-[#294C18] border border-[#BCE842]/30 text-white hover:bg-[#34601E] text-xs font-bold rounded-xl shadow-xs transition-colors"
+            title="Generate & print PDF financial statement"
+          >
+            <FileText className="w-4 h-4 text-[#BCE842]" />
+            <span className="hidden sm:inline">Export PDF Statement</span>
+            <span className="sm:hidden">PDF</span>
+          </button>
           <button
             onClick={handleExportCSV}
             className="flex items-center gap-2 px-3.5 py-2 bg-white dark:bg-[#182E0E] border border-emerald-900/10 dark:border-[#294C18] text-slate-700 dark:text-emerald-100 hover:bg-slate-50 dark:hover:bg-[#294C18] text-xs font-bold rounded-xl shadow-xs transition-colors"
           >
             <Download className="w-4 h-4 text-[#BCE842]" />
-            <span>Export CSV</span>
+            <span className="hidden sm:inline">Export CSV</span>
+            <span className="sm:hidden">CSV</span>
           </button>
           <button
             onClick={openQuickAdd}
             className="flex items-center gap-2 px-4 py-2 bg-[#BCE842] hover:bg-[#A6D42E] text-[#14240B] text-xs font-black rounded-xl shadow-sm shadow-[#BCE842]/20 transition-all"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
-            <span>Add Transaction</span>
+            <span className="hidden sm:inline">Add Transaction</span>
+            <span className="sm:hidden">Add</span>
           </button>
         </div>
       </div>
@@ -304,16 +358,60 @@ export const Transactions: React.FC = () => {
             <input
               type="date"
               value={startDate}
-              onChange={e => { setStartDate(e.target.value); setPage(1); }}
+              onChange={e => { setStartDate(e.target.value); setActiveDateQuickFilter('all'); setPage(1); }}
               className="px-2 py-1 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-lg text-slate-700 dark:text-emerald-100"
             />
             <span className="text-slate-400">to</span>
             <input
               type="date"
               value={endDate}
-              onChange={e => { setEndDate(e.target.value); setPage(1); }}
+              onChange={e => { setEndDate(e.target.value); setActiveDateQuickFilter('all'); setPage(1); }}
               className="px-2 py-1 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-lg text-slate-700 dark:text-emerald-100"
             />
+
+            {/* Date Quick Filter Pills */}
+            <div className="flex items-center gap-1 ml-2 pl-2 border-l border-slate-200 dark:border-[#294C18]">
+              <button
+                onClick={() => handleQuickDateFilter('today')}
+                className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                  activeDateQuickFilter === 'today'
+                    ? 'bg-[#BCE842] text-[#14240B]'
+                    : 'bg-slate-100 dark:bg-[#182E0E] text-slate-600 dark:text-emerald-300 hover:bg-slate-200 dark:hover:bg-[#294C18]'
+                }`}
+              >
+                Today
+              </button>
+              <button
+                onClick={() => handleQuickDateFilter('week')}
+                className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                  activeDateQuickFilter === 'week'
+                    ? 'bg-[#BCE842] text-[#14240B]'
+                    : 'bg-slate-100 dark:bg-[#182E0E] text-slate-600 dark:text-emerald-300 hover:bg-slate-200 dark:hover:bg-[#294C18]'
+                }`}
+              >
+                This Week
+              </button>
+              <button
+                onClick={() => handleQuickDateFilter('month')}
+                className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                  activeDateQuickFilter === 'month'
+                    ? 'bg-[#BCE842] text-[#14240B]'
+                    : 'bg-slate-100 dark:bg-[#182E0E] text-slate-600 dark:text-emerald-300 hover:bg-slate-200 dark:hover:bg-[#294C18]'
+                }`}
+              >
+                This Month
+              </button>
+              <button
+                onClick={() => handleQuickDateFilter('all')}
+                className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all ${
+                  activeDateQuickFilter === 'all'
+                    ? 'bg-[#BCE842] text-[#14240B]'
+                    : 'bg-slate-100 dark:bg-[#182E0E] text-slate-600 dark:text-emerald-300 hover:bg-slate-200 dark:hover:bg-[#294C18]'
+                }`}
+              >
+                All Time
+              </button>
+            </div>
           </div>
 
           {hasActiveFilters && (
@@ -448,6 +546,23 @@ export const Transactions: React.FC = () => {
                       </td>
                       <td className="py-3.5 px-4 text-center whitespace-nowrap">
                         <div className="flex items-center justify-center gap-1">
+                          {txn.receiptUrl ? (
+                            <button
+                              onClick={() => setViewingReceiptTransaction(txn)}
+                              className="p-1.5 text-[#BCE842] hover:bg-[#294C18] rounded transition-colors"
+                              title="View Attached Receipt"
+                            >
+                              <Paperclip className="w-3.5 h-3.5" />
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => setViewingReceiptTransaction(txn)}
+                              className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-emerald-300 hover:bg-slate-100 dark:hover:bg-[#294C18] rounded transition-colors"
+                              title="View Record Details"
+                            >
+                              <Paperclip className="w-3.5 h-3.5 opacity-40" />
+                            </button>
+                          )}
                           <button
                             onClick={() => {
                               setEditingTransaction(txn);
@@ -505,6 +620,14 @@ export const Transactions: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Receipt Modal */}
+      {viewingReceiptTransaction && (
+        <ReceiptModal
+          transaction={viewingReceiptTransaction}
+          onClose={() => setViewingReceiptTransaction(null)}
+        />
+      )}
 
       {/* Edit Transaction Modal */}
       {isEditModalOpen && (

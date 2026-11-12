@@ -37,6 +37,7 @@ import { formatCurrency, formatDate } from '../utils/formatters';
 import CurrencyConverterWidget from '../components/widgets/CurrencyConverterWidget';
 import GoldSilverPricesWidget from '../components/widgets/GoldSilverPricesWidget';
 import FuelPricesWidget from '../components/widgets/FuelPricesWidget';
+import SavingsGoalWidget from '../components/widgets/SavingsGoalWidget';
 
 export const Dashboard: React.FC = () => {
   const { currency, currencySymbol, refreshTrigger, openQuickAdd } = useApp();
@@ -226,6 +227,9 @@ export const Dashboard: React.FC = () => {
           accentColor={remainingBudget > 0 ? 'green' : 'red'}
         />
       </div>
+
+      {/* Financial Savings Target Goal Tracker */}
+      <SavingsGoalWidget />
 
       {/* LIVE FINANCIAL INFORMATION Section */}
       <div className="space-y-4">

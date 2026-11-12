@@ -43,6 +43,7 @@ export const transactionService = {
     paymentMethod: string;
     date: string;
     notes?: string;
+    receiptUrl?: string;
   }): Promise<ApiResponse<Transaction>> {
     return await api.post<Transaction>('/api/transactions', transactionData);
   },

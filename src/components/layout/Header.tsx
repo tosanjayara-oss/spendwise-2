@@ -6,10 +6,13 @@ import {
   Sun,
   Plus,
   AlertTriangle,
-  ChevronDown
+  ChevronDown,
+  Search,
+  Command
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { formatCurrency } from '../../utils/formatters';
+import CommandPalette from '../common/CommandPalette';
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -19,6 +22,7 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
   const location = useLocation();
   const { theme, setTheme, openQuickAdd, budgetAlerts, currency, currencySymbol } = useApp();
   const [showAlertMenu, setShowAlertMenu] = useState(false);
+  const [isCmdOpen, setIsCmdOpen] = useState(false);
 
   const getPageInfo = () => {
     const path = location.pathname;
@@ -105,6 +109,19 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
           </div>
         )}
 
+        {/* Command Palette ⌘K Trigger Button */}
+        <button
+          onClick={() => setIsCmdOpen(true)}
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-slate-500 dark:text-emerald-200 bg-slate-100 dark:bg-[#213D13] hover:bg-slate-200 dark:hover:bg-[#294C18] rounded-xl border border-slate-200/60 dark:border-[#34601E] transition-all"
+          title="Search commands, pages & quick actions (⌘K)"
+        >
+          <Search className="w-3.5 h-3.5 text-slate-400 dark:text-[#BCE842]" />
+          <span>Quick Search...</span>
+          <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold bg-white dark:bg-[#182E0E] text-slate-600 dark:text-[#BCE842] border border-slate-200 dark:border-[#34601E] rounded shadow-2xs">
+            <Command className="w-2.5 h-2.5" />K
+          </kbd>
+        </button>
+
         {/* Currency Pill */}
         <div className="hidden sm:flex items-center px-2.5 py-1 text-xs font-bold text-emerald-800 dark:text-[#BCE842] bg-emerald-100/60 dark:bg-[#213D13] rounded-md tabular-nums border border-emerald-200/50 dark:border-[#34601E]">
           {currency} ({currencySymbol})
@@ -128,6 +145,9 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>New Transaction</span>
         </button>
+
+        {/* Command Palette Modal */}
+        <CommandPalette isOpen={isCmdOpen} onClose={() => setIsCmdOpen(false)} />
       </div>
     </header>
   );

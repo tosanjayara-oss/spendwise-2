@@ -4,7 +4,9 @@ import {
   ArrowDownCircle,
   ArrowUpCircle,
   Check,
-  AlertCircle
+  AlertCircle,
+  Paperclip,
+  Image as ImageIcon
 } from 'lucide-react';
 import { Transaction, Category, PaymentMethod, TransactionType } from '../../types';
 import transactionService from '../../services/transactionService';
@@ -35,6 +37,24 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
     initialData?.paymentMethod || 'UPI'
   );
   const [notes, setNotes] = useState<string>(initialData?.notes || '');
+  const [receiptUrl, setReceiptUrl] = useState<string>(initialData?.receiptUrl || '');
+
+  const sampleReceipts = [
+    { label: 'Restaurant Bill', url: 'https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?w=500&auto=format&fit=crop&q=80' },
+    { label: 'Fuel Slip', url: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&auto=format&fit=crop&q=80' },
+    { label: 'Supermarket Grocery', url: 'https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?w=500&auto=format&fit=crop&q=80' }
+  ];
+
+  const handleReceiptUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setReceiptUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -111,7 +131,8 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           category,
           date,
           paymentMethod,
-          notes: notes.trim()
+          notes: notes.trim(),
+          receiptUrl
         });
         addToast({
           type: 'success',
@@ -126,7 +147,8 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           category,
           date,
           paymentMethod,
-          notes: notes.trim()
+          notes: notes.trim(),
+          receiptUrl
         });
         addToast({
           type: 'success',
@@ -336,6 +358,55 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           placeholder="Add tags, bill reference numbers, or context..."
           className="w-full px-4 py-2 bg-white dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-[#BCE842] text-slate-900 dark:text-white resize-none transition-colors"
         />
+      </div>
+
+      {/* Receipt Image Attachment */}
+      <div className="p-3 bg-slate-50 dark:bg-[#182E0E] rounded-xl border border-slate-200 dark:border-[#294C18] space-y-2">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-[#BCE842] flex items-center gap-1.5">
+          <Paperclip className="w-3.5 h-3.5" />
+          <span>Attach Receipt / Invoice (Optional)</span>
+        </label>
+        
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleReceiptUpload}
+            className="text-xs text-slate-500 dark:text-emerald-200 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#BCE842] file:text-[#14240B] hover:file:bg-[#A6D42E] cursor-pointer"
+          />
+          
+          <div className="flex items-center gap-1 text-[11px] font-semibold text-slate-400 dark:text-emerald-400">
+            <span>Or sample:</span>
+            {sampleReceipts.map(sample => (
+              <button
+                key={sample.label}
+                type="button"
+                onClick={() => setReceiptUrl(sample.url)}
+                className="px-2 py-1 bg-white dark:bg-[#294C18] border border-slate-200 dark:border-[#34601E] rounded hover:border-[#BCE842] transition-colors text-slate-700 dark:text-emerald-100 font-medium"
+              >
+                {sample.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {receiptUrl && (
+          <div className="mt-2 relative inline-block group">
+            <img
+              src={receiptUrl}
+              alt="Receipt Preview"
+              className="w-16 h-16 object-cover rounded-lg border-2 border-[#BCE842]"
+            />
+            <button
+              type="button"
+              onClick={() => setReceiptUrl('')}
+              className="absolute -top-1 -right-1 bg-rose-600 text-white rounded-full p-0.5 text-[10px] font-bold shadow-md"
+              title="Remove receipt"
+            >
+              ✕
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Form Buttons */}

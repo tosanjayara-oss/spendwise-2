@@ -19,6 +19,7 @@ export interface Transaction {
   paymentMethod: PaymentMethod;
   amount: number;
   notes?: string;
+  receiptUrl?: string;
   createdAt: string;
 }
 
