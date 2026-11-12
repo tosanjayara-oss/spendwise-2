@@ -1,0 +1,6 @@
+{
+  "name": "SpendWise - Personal Expense Tracker",
+  "description": "A modern, professional personal expense tracker and financial SaaS dashboard with analytics, budgets, and transaction management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

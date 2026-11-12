@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  --color-artichoke-950: #0e1a08;
+  --color-artichoke-900: #14240b;
+  --color-artichoke-850: #1a2f0e;
+  --color-artichoke-800: #213d13;
+  --color-artichoke-750: #294c18;
+  --color-artichoke-700: #34601e;
+  --color-artichoke-600: #427b27;
+  --color-artichoke-500: #529a31;
+  
+  --color-lime-botanical: #bce842;
+  --color-lime-botanical-hover: #a6d42e;
+  --color-lime-[#a6d42e]: #a6d42e;
+}
+
+/* Custom scrollbars for tables and dashboard panels */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(78, 121, 51, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(78, 121, 51, 0.7);
+}
+
+/* Concentric circle line background pattern - strictly Artichoke Green (#3F6A28 / #365D22) */
+.bg-card-concentric {
+  background-color: #3B6622 !important;
+  background-image: radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.18) 35%, transparent 35.5%),
+                    radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.10) 60%, transparent 60.5%),
+                    radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 85%, transparent 85.5%) !important;
+  color: #ffffff !important;
+}
+
+.bg-card-concentric * {
+  color: inherit;
+}
