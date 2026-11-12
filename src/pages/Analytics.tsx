@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   TrendingUp,
   CreditCard,
-  ArrowUpRight,
-  ArrowDownLeft,
   Zap,
   Target,
   Sparkles
@@ -57,10 +55,10 @@ export const Analytics: React.FC = () => {
       <div className="space-y-6 animate-pulse">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-28 bg-white dark:bg-[#06281c] rounded-2xl border border-emerald-900/10 dark:border-[#0d4a34]" />
+            <div key={i} className="h-28 bg-white dark:bg-[#0F1017] rounded-2xl border border-rose-900/10 dark:border-[#3B070E]" />
           ))}
         </div>
-        <div className="h-80 bg-white dark:bg-[#06281c] rounded-2xl border border-emerald-900/10 dark:border-[#0d4a34]" />
+        <div className="h-80 bg-white dark:bg-[#0F1017] rounded-2xl border border-rose-900/10 dark:border-[#3B070E]" />
       </div>
     );
   }
@@ -79,7 +77,7 @@ export const Analytics: React.FC = () => {
     }
   } = data || {};
 
-  const CATEGORY_COLORS = ['#c2f138', '#10b981', '#06b6d4', '#84cc16', '#eab308', '#3b82f6'];
+  const CATEGORY_COLORS = ['#BCE842', '#10B981', '#84CC16', '#06B6D4', '#EAB308', '#F43F5E', '#A855F7'];
 
   return (
     <div className="space-y-6">
@@ -95,12 +93,12 @@ export const Analytics: React.FC = () => {
         </div>
 
         {/* Timeframe Selector Tabs */}
-        <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-[#093727] rounded-xl border border-emerald-900/10 dark:border-[#0d4a34]">
+        <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-[#182E0E] rounded-xl border border-emerald-900/10 dark:border-[#294C18]">
           <button
             onClick={() => setTimeframe('30d')}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               timeframe === '30d'
-                ? 'bg-white dark:bg-[#0d4a34] text-slate-900 dark:text-[#c2f138] shadow-xs'
+                ? 'bg-white dark:bg-[#294C18] text-slate-900 dark:text-[#BCE842] shadow-xs'
                 : 'text-slate-600 dark:text-emerald-300/70'
             }`}
           >
@@ -110,7 +108,7 @@ export const Analytics: React.FC = () => {
             onClick={() => setTimeframe('90d')}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               timeframe === '90d'
-                ? 'bg-white dark:bg-[#0d4a34] text-slate-900 dark:text-[#c2f138] shadow-xs'
+                ? 'bg-white dark:bg-[#294C18] text-slate-900 dark:text-[#BCE842] shadow-xs'
                 : 'text-slate-600 dark:text-emerald-300/70'
             }`}
           >
@@ -120,7 +118,7 @@ export const Analytics: React.FC = () => {
             onClick={() => setTimeframe('6m')}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               timeframe === '6m'
-                ? 'bg-white dark:bg-[#0d4a34] text-slate-900 dark:text-[#c2f138] shadow-xs'
+                ? 'bg-white dark:bg-[#294C18] text-slate-900 dark:text-[#BCE842] shadow-xs'
                 : 'text-slate-600 dark:text-emerald-300/70'
             }`}
           >
@@ -135,7 +133,7 @@ export const Analytics: React.FC = () => {
           title="Average Daily Spending"
           value={formatCurrency(keyMetrics.averageDailySpending, currency, currencySymbol)}
           subtext="Computed over 30 days"
-          icon={<TrendingUp className="w-4 h-4 text-[#0d5c3a] dark:text-[#c2f138]" />}
+          icon={<TrendingUp className="w-4 h-4 text-[#BCE842]" />}
           accentColor="blue"
         />
         <StatCard
@@ -156,14 +154,14 @@ export const Analytics: React.FC = () => {
           title="Projected Month-End"
           value={formatCurrency(keyMetrics.projectedMonthEndExpense, currency, currencySymbol)}
           subtext="Forecasted based on current run-rate"
-          icon={<Zap className="w-4 h-4 text-[#c2f138]" />}
+          icon={<Zap className="w-4 h-4 text-[#BCE842]" />}
           accentColor="neutral"
         />
       </div>
 
       {/* Main Area Chart */}
-      <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 dark:border-[#0d4a34] gap-2">
+      <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 dark:border-[#294C18] gap-2">
           <div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
               6-Month Income, Expense & Net Savings Velocity
@@ -173,14 +171,14 @@ export const Analytics: React.FC = () => {
             </p>
           </div>
           <div className="flex items-center gap-4 text-xs font-bold">
-            <span className="flex items-center gap-1.5 text-emerald-600 dark:text-[#c2f138]">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#c2f138]" /> Income
+            <span className="flex items-center gap-1.5 text-emerald-600 dark:text-[#BCE842]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#BCE842]" /> Income
             </span>
             <span className="flex items-center gap-1.5 text-rose-600 dark:text-rose-400">
               <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Expense
             </span>
             <span className="flex items-center gap-1.5 text-emerald-400">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Net Savings
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Net Savings
             </span>
           </div>
         </div>
@@ -190,38 +188,38 @@ export const Analytics: React.FC = () => {
             <AreaChart data={monthlyIncomeVsExpense} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#c2f138" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#c2f138" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#BCE842" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#BCE842" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorExpense" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#EF4444" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#EF4444" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#f43f5e" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorSavings" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#10B981" stopOpacity={0.3} />
                   <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#125e43" opacity={0.2} />
-              <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: '#10b981' }} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#294C18" opacity={0.3} />
+              <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: '#bce842' }} />
               <YAxis
                 tickLine={false}
                 axisLine={false}
-                tick={{ fontSize: 11, fill: '#10b981' }}
+                tick={{ fontSize: 11, fill: '#bce842' }}
                 tickFormatter={val => `₹${(val / 1000).toFixed(0)}k`}
               />
               <Tooltip
                 formatter={(val: any) => [formatCurrency(Number(val), currency, currencySymbol), '']}
                 contentStyle={{
-                  backgroundColor: '#06281c',
-                  border: '1px solid #0d4a34',
+                  backgroundColor: '#182E0E',
+                  border: '1px solid #294C18',
                   borderRadius: '12px',
                   color: '#f8fafc',
                   fontSize: '12px'
                 }}
               />
-              <Area type="monotone" dataKey="income" name="Income" stroke="#c2f138" strokeWidth={2.5} fillOpacity={1} fill="url(#colorIncome)" />
-              <Area type="monotone" dataKey="expense" name="Expense" stroke="#EF4444" strokeWidth={2.5} fillOpacity={1} fill="url(#colorExpense)" />
+              <Area type="monotone" dataKey="income" name="Income" stroke="#BCE842" strokeWidth={2.5} fillOpacity={1} fill="url(#colorIncome)" />
+              <Area type="monotone" dataKey="expense" name="Expense" stroke="#f43f5e" strokeWidth={2.5} fillOpacity={1} fill="url(#colorExpense)" />
               <Area type="monotone" dataKey="savings" name="Savings" stroke="#10B981" strokeWidth={2.5} fillOpacity={1} fill="url(#colorSavings)" />
             </AreaChart>
           </ResponsiveContainer>
@@ -231,8 +229,8 @@ export const Analytics: React.FC = () => {
       {/* Two Columns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Category Breakdown Table */}
-        <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm">
-          <div className="pb-4 border-b border-slate-100 dark:border-[#0d4a34]">
+        <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm">
+          <div className="pb-4 border-b border-slate-100 dark:border-[#294C18]">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
               Category Spending Allocation
             </h3>
@@ -258,7 +256,7 @@ export const Analytics: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="w-full bg-slate-100 dark:bg-[#093727] rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-slate-100 dark:bg-[#182E0E] rounded-full h-2 overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-300"
                     style={{ width: `${item.percentage}%`, backgroundColor: CATEGORY_COLORS[idx % CATEGORY_COLORS.length] }}
@@ -272,8 +270,8 @@ export const Analytics: React.FC = () => {
         {/* Daily Spending & Payment Method Breakdown */}
         <div className="space-y-6">
           {/* Daily Spending Timeline */}
-          <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm">
-            <div className="pb-4 border-b border-slate-100 dark:border-[#0d4a34]">
+          <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm">
+            <div className="pb-4 border-b border-slate-100 dark:border-[#294C18]">
               <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 Daily Spending Velocity (Recent 7 Days)
               </h3>
@@ -285,35 +283,35 @@ export const Analytics: React.FC = () => {
             <div className="h-48 w-full mt-4">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={dailySpendingTrends} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#125e43" opacity={0.2} />
-                  <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: '#10b981' }} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#294C18" opacity={0.3} />
+                  <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: '#bce842' }} />
                   <YAxis
                     tickLine={false}
                     axisLine={false}
-                    tick={{ fontSize: 11, fill: '#10b981' }}
+                    tick={{ fontSize: 11, fill: '#bce842' }}
                     tickFormatter={val => `₹${val}`}
                   />
                   <Tooltip
                     formatter={(val: any) => [formatCurrency(Number(val), currency, currencySymbol), 'Spent']}
                     contentStyle={{
-                      backgroundColor: '#06281c',
-                      border: '1px solid #0d4a34',
+                      backgroundColor: '#182E0E',
+                      border: '1px solid #294C18',
                       borderRadius: '12px',
                       color: '#f8fafc',
                       fontSize: '12px'
                     }}
                   />
-                  <Bar dataKey="amount" fill="#c2f138" radius={[4, 4, 0, 0]} maxBarSize={28} />
+                  <Bar dataKey="amount" fill="#f43f5e" radius={[4, 4, 0, 0]} maxBarSize={28} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
 
           {/* Payment Method Distribution */}
-          <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm">
-            <div className="pb-3 border-b border-slate-100 dark:border-[#0d4a34]">
+          <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm">
+            <div className="pb-3 border-b border-slate-100 dark:border-[#294C18]">
               <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-[#0d5c3a] dark:text-[#c2f138]" />
+                <CreditCard className="w-4 h-4 text-[#BCE842]" />
                 <span>Payment Channels</span>
               </h3>
               <p className="text-xs text-slate-500 dark:text-emerald-300/80">
@@ -323,14 +321,14 @@ export const Analytics: React.FC = () => {
 
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
               {paymentMethodBreakdown.map(pm => (
-                <div key={pm.method} className="p-3 bg-slate-50 dark:bg-[#093727] rounded-xl border border-slate-100 dark:border-[#0d4a34]">
+                <div key={pm.method} className="p-3 bg-slate-50 dark:bg-[#182E0E] rounded-xl border border-slate-100 dark:border-[#294C18]">
                   <span className="text-[11px] font-bold text-slate-500 dark:text-emerald-300/80 block truncate">
                     {pm.method}
                   </span>
                   <div className="text-sm font-extrabold text-slate-900 dark:text-white font-mono mt-1 tabular-nums">
                     {formatCurrency(pm.amount, currency, currencySymbol)}
                   </div>
-                  <span className="text-[10px] text-[#0d5c3a] dark:text-[#c2f138] font-bold">
+                  <span className="text-[10px] text-[#BCE842] font-bold">
                     {pm.percentage}% of total
                   </span>
                 </div>

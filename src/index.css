@@ -6,18 +6,18 @@
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   
-  --color-forest-950: #03140e;
-  --color-forest-900: #06281c;
-  --color-forest-850: #093727;
-  --color-forest-800: #0d4a34;
-  --color-forest-700: #125e43;
-  --color-forest-600: #1a7856;
-  --color-forest-500: #24966d;
+  --color-artichoke-950: #0e1a08;
+  --color-artichoke-900: #14240b;
+  --color-artichoke-850: #1a2f0e;
+  --color-artichoke-800: #213d13;
+  --color-artichoke-750: #294c18;
+  --color-artichoke-700: #34601e;
+  --color-artichoke-600: #427b27;
+  --color-artichoke-500: #529a31;
   
-  --color-lime-accent: #c2f138;
-  --color-lime-hover: #b1df2f;
-  --color-lime-light: #e6f9a5;
-  --color-lime-dark: #08281a;
+  --color-lime-botanical: #bce842;
+  --color-lime-botanical-hover: #a6d42e;
+  --color-lime-[#a6d42e]: #a6d42e;
 }
 
 /* Custom scrollbars for tables and dashboard panels */
@@ -29,19 +29,19 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(18, 94, 67, 0.4);
+  background: rgba(78, 121, 51, 0.4);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(18, 94, 67, 0.7);
+  background: rgba(78, 121, 51, 0.7);
 }
 
-/* Concentric circle line background pattern for credit card visual style - strictly dark forest green (#0D5C3A) */
+/* Concentric circle line background pattern - strictly Artichoke Green (#3F6A28 / #365D22) */
 .bg-card-concentric {
-  background-color: #0D5C3A !important;
-  background-image: radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 35%, transparent 35.5%),
-                    radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.08) 60%, transparent 60.5%),
-                    radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.04) 85%, transparent 85.5%) !important;
+  background-color: #3B6622 !important;
+  background-image: radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.18) 35%, transparent 35.5%),
+                    radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.10) 60%, transparent 60.5%),
+                    radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 85%, transparent 85.5%) !important;
   color: #ffffff !important;
 }
 

@@ -17,6 +17,7 @@ import {
   AnalyticsSummary,
   TransactionFilters
 } from '../types';
+import { computeDashboardSummary } from '../utils/expenseCalculations';
 
 /**
  * SpendWise API Client & Mock Router
@@ -344,83 +345,20 @@ class ApiService {
     const budgets = getStoredBudgets();
     const categories = getStoredCategories();
 
-    let totalIncome = 0;
-    let totalExpenses = 0;
-
-    txns.forEach(t => {
-      if (t.type === 'income') totalIncome += t.amount;
-      if (t.type === 'expense') totalExpenses += t.amount;
-    });
-
-    const totalBalance = totalIncome - totalExpenses;
-    const totalSavings = Math.max(0, totalBalance);
-    const savingsRate = totalIncome > 0 ? Math.round((totalSavings / totalIncome) * 100) : 0;
-
-    const totalMonthlyBudget = budgets.reduce((acc, b) => acc + b.monthlyLimit, 0);
-    const totalSpentInBudgets = budgets.reduce((acc, b) => acc + b.spent, 0);
-    const remainingBudget = Math.max(0, totalMonthlyBudget - totalSpentInBudgets);
-
-    // Monthly Income vs Expense (last 6 months trend)
-    const monthMap: Record<string, { income: number; expense: number }> = {
-      'Jun': { income: 145000, expense: 62000 },
-      'Jul': { income: 152000, expense: 68500 },
-      'Aug': { income: 145000, expense: 59000 },
-      'Sep': { income: 182000, expense: 74200 },
-      'Oct': { income: 195500, expense: 69400 },
-      'Nov': { income: totalIncome > 100000 ? totalIncome : 195500, expense: totalExpenses > 40000 ? totalExpenses : 64800 }
-    };
-
-    const incomeVsExpenseMonthly = Object.entries(monthMap).map(([month, data]) => ({
-      month,
-      income: data.income,
-      expense: data.expense
-    }));
-
-    // Category expenses distribution
-    const categoryExpensesMap: Record<string, number> = {};
-    txns.filter(t => t.type === 'expense').forEach(t => {
-      categoryExpensesMap[t.category] = (categoryExpensesMap[t.category] || 0) + t.amount;
-    });
-
-    const categoryColorMap: Record<string, string> = {};
-    categories.forEach(c => { categoryColorMap[c.name] = c.color; });
-
-    const categoryExpenses = Object.entries(categoryExpensesMap).map(([name, value]) => ({
-      name,
-      value,
-      color: categoryColorMap[name] || '#3B82F6'
-    })).sort((a, b) => b.value - a.value);
-
-    // Recent transactions (latest 5)
-    const sorted = [...txns].sort((a, b) => (b.date > a.date ? 1 : -1));
-    const recentTransactions = sorted.slice(0, 5);
-
-    // Budget progress
-    const budgetProgress = budgets.map(b => {
-      const percentage = b.monthlyLimit > 0 ? Math.round((b.spent / b.monthlyLimit) * 100) : 0;
-      return {
-        id: b.id,
-        category: b.category,
-        limit: b.monthlyLimit,
-        spent: b.spent,
-        percentage,
-        isOverBudget: b.spent > b.monthlyLimit,
-        color: categoryColorMap[b.category] || '#6366F1'
-      };
-    });
+    const calc = computeDashboardSummary(txns, budgets, categories);
 
     return {
-      totalBalance,
-      totalIncome,
-      totalExpenses,
-      totalSavings,
-      monthlyBudget: totalMonthlyBudget,
-      remainingBudget,
-      savingsRate,
-      incomeVsExpenseMonthly,
-      categoryExpenses,
-      recentTransactions,
-      budgetProgress
+      totalBalance: calc.totalBalance,
+      totalIncome: calc.totalIncome,
+      totalExpenses: calc.totalExpenses,
+      totalSavings: calc.totalSavings,
+      monthlyBudget: calc.monthlyBudgetTotal,
+      remainingBudget: calc.remainingBudget,
+      savingsRate: calc.savingsRate,
+      incomeVsExpenseMonthly: calc.incomeVsExpenseMonthly,
+      categoryExpenses: calc.categoryExpenses,
+      recentTransactions: calc.recentTransactions,
+      budgetProgress: calc.budgetProgress
     };
   }
 

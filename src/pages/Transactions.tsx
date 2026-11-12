@@ -189,14 +189,14 @@ export const Transactions: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-2 px-3.5 py-2 bg-white dark:bg-[#06281c] border border-emerald-900/10 dark:border-[#0d4a34] text-slate-700 dark:text-emerald-200 hover:bg-slate-50 dark:hover:bg-[#093727] text-xs font-bold rounded-xl shadow-xs transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 bg-white dark:bg-[#182E0E] border border-emerald-900/10 dark:border-[#294C18] text-slate-700 dark:text-emerald-100 hover:bg-slate-50 dark:hover:bg-[#294C18] text-xs font-bold rounded-xl shadow-xs transition-colors"
           >
-            <Download className="w-4 h-4 text-[#0d5c3a] dark:text-[#c2f138]" />
+            <Download className="w-4 h-4 text-[#BCE842]" />
             <span>Export CSV</span>
           </button>
           <button
             onClick={openQuickAdd}
-            className="flex items-center gap-2 px-4 py-2 bg-[#c2f138] hover:bg-[#b1df2f] text-[#06281c] text-xs font-black rounded-xl shadow-sm shadow-[#c2f138]/20 transition-all"
+            className="flex items-center gap-2 px-4 py-2 bg-[#BCE842] hover:bg-[#A6D42E] text-[#14240B] text-xs font-black rounded-xl shadow-sm shadow-[#BCE842]/20 transition-all"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Add Transaction</span>
@@ -205,11 +205,11 @@ export const Transactions: React.FC = () => {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white dark:bg-[#06281c] rounded-2xl p-4 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm space-y-3">
+      <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-4 border border-emerald-900/10 dark:border-[#294C18] shadow-sm space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Search Box */}
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 dark:text-emerald-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-[#BCE842] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={search}
@@ -218,7 +218,7 @@ export const Transactions: React.FC = () => {
                 setPage(1);
               }}
               placeholder="Search description, category, ID..."
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#BCE842] text-slate-900 dark:text-white"
             />
           </div>
 
@@ -230,7 +230,7 @@ export const Transactions: React.FC = () => {
                 setSelectedCategory(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white"
+              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#BCE842] text-slate-900 dark:text-white"
             >
               <option value="all">All Categories</option>
               {categories.map(cat => (
@@ -242,12 +242,12 @@ export const Transactions: React.FC = () => {
           </div>
 
           {/* Type Segmented Control */}
-          <div className="flex p-1 bg-slate-100 dark:bg-[#093727] rounded-xl border border-emerald-900/10 dark:border-[#0d4a34]">
+          <div className="flex p-1 bg-slate-100 dark:bg-[#182E0E] rounded-xl border border-emerald-900/10 dark:border-[#294C18]">
             <button
               onClick={() => { setSelectedType('all'); setPage(1); }}
               className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 selectedType === 'all'
-                  ? 'bg-white dark:bg-[#0d4a34] text-slate-900 dark:text-[#c2f138] shadow-xs'
+                  ? 'bg-white dark:bg-[#294C18] text-slate-900 dark:text-[#BCE842] shadow-xs'
                   : 'text-slate-500 dark:text-emerald-300/70'
               }`}
             >
@@ -257,7 +257,7 @@ export const Transactions: React.FC = () => {
               onClick={() => { setSelectedType('income'); setPage(1); }}
               className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 selectedType === 'income'
-                  ? 'bg-[#c2f138] text-[#06281c] shadow-xs'
+                  ? 'bg-[#BCE842] text-[#14240B] font-black shadow-xs'
                   : 'text-slate-500 dark:text-emerald-300/70'
               }`}
             >
@@ -283,7 +283,7 @@ export const Transactions: React.FC = () => {
                 setSelectedPaymentMethod(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white"
+              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#BCE842] text-slate-900 dark:text-white"
             >
               <option value="all">All Payment Methods</option>
               <option value="UPI">UPI</option>
@@ -296,30 +296,30 @@ export const Transactions: React.FC = () => {
         </div>
 
         {/* Date Filter Range */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-[#0d4a34] text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-[#294C18] text-xs">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-slate-500 dark:text-emerald-300/80 flex items-center gap-1 font-semibold">
-              <Calendar className="w-3.5 h-3.5 text-[#0d5c3a] dark:text-[#c2f138]" /> Date Range:
+              <Calendar className="w-3.5 h-3.5 text-[#BCE842]" /> Date Range:
             </span>
             <input
               type="date"
               value={startDate}
               onChange={e => { setStartDate(e.target.value); setPage(1); }}
-              className="px-2 py-1 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-lg text-slate-700 dark:text-emerald-100"
+              className="px-2 py-1 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-lg text-slate-700 dark:text-emerald-100"
             />
             <span className="text-slate-400">to</span>
             <input
               type="date"
               value={endDate}
               onChange={e => { setEndDate(e.target.value); setPage(1); }}
-              className="px-2 py-1 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-lg text-slate-700 dark:text-emerald-100"
+              className="px-2 py-1 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-lg text-slate-700 dark:text-emerald-100"
             />
           </div>
 
           {hasActiveFilters && (
             <button
               onClick={resetFilters}
-              className="text-xs text-rose-600 dark:text-rose-400 hover:underline font-bold flex items-center gap-1"
+              className="text-xs text-rose-600 dark:text-[#BCE842] hover:underline font-bold flex items-center gap-1"
             >
               <X className="w-3.5 h-3.5" />
               <span>Reset All Filters</span>
@@ -329,14 +329,14 @@ export const Transactions: React.FC = () => {
       </div>
 
       {/* Transaction Table */}
-      <div className="bg-white dark:bg-[#06281c] rounded-2xl border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-[#1B3111] rounded-2xl border border-emerald-900/10 dark:border-[#294C18] shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/75 dark:bg-[#093727]/80 border-b border-slate-200 dark:border-[#0d4a34] text-[11px] font-bold text-slate-500 dark:text-emerald-300/80 uppercase tracking-wider">
+              <tr className="bg-slate-50/75 dark:bg-[#182E0E]/80 border-b border-slate-200 dark:border-[#294C18] text-[11px] font-bold text-slate-500 dark:text-emerald-300/80 uppercase tracking-wider">
                 <th className="py-3 px-4">Transaction ID</th>
                 <th
-                  className="py-3 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-[#c2f138] transition-colors"
+                  className="py-3 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-[#BCE842] transition-colors"
                   onClick={() => handleSort('date')}
                 >
                   <div className="flex items-center gap-1">
@@ -345,7 +345,7 @@ export const Transactions: React.FC = () => {
                   </div>
                 </th>
                 <th
-                  className="py-3 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-[#c2f138] transition-colors"
+                  className="py-3 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-[#BCE842] transition-colors"
                   onClick={() => handleSort('description')}
                 >
                   <div className="flex items-center gap-1">
@@ -357,7 +357,7 @@ export const Transactions: React.FC = () => {
                 <th className="py-3 px-4">Type</th>
                 <th className="py-3 px-4">Method</th>
                 <th
-                  className="py-3 px-4 text-right cursor-pointer hover:text-slate-900 dark:hover:text-[#c2f138] transition-colors"
+                  className="py-3 px-4 text-right cursor-pointer hover:text-slate-900 dark:hover:text-[#BCE842] transition-colors"
                   onClick={() => handleSort('amount')}
                 >
                   <div className="flex items-center justify-end gap-1">
@@ -368,18 +368,18 @@ export const Transactions: React.FC = () => {
                 <th className="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-[#0d4a34] text-xs">
+            <tbody className="divide-y divide-slate-100 dark:divide-[#294C18] text-xs">
               {loading ? (
                 <tr>
                   <td colSpan={8} className="py-12 text-center text-slate-400">
-                    <div className="inline-block w-6 h-6 border-2 border-[#c2f138] border-t-transparent rounded-full animate-spin" />
+                    <div className="inline-block w-6 h-6 border-2 border-[#BCE842] border-t-transparent rounded-full animate-spin" />
                     <p className="mt-2 text-xs font-semibold">Loading ledger entries...</p>
                   </td>
                 </tr>
               ) : transactions.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="py-12 text-center">
-                    <AlertCircle className="w-8 h-8 text-slate-400 dark:text-emerald-500 mx-auto mb-2" />
+                    <AlertCircle className="w-8 h-8 text-slate-400 dark:text-[#BCE842] mx-auto mb-2" />
                     <p className="text-sm font-bold text-slate-700 dark:text-white">
                       No transactions match your search or filter criteria
                     </p>
@@ -388,7 +388,7 @@ export const Transactions: React.FC = () => {
                     </p>
                     <button
                       onClick={openQuickAdd}
-                      className="mt-4 px-4 py-2 bg-[#c2f138] text-[#06281c] font-black text-xs rounded-xl transition-all"
+                      className="mt-4 px-4 py-2 bg-[#BCE842] text-[#14240B] font-black text-xs rounded-xl transition-all"
                     >
                       Record First Transaction
                     </button>
@@ -400,12 +400,12 @@ export const Transactions: React.FC = () => {
                   return (
                     <tr
                       key={txn.id}
-                      className="hover:bg-slate-50/80 dark:hover:bg-[#093727] transition-colors"
+                      className="hover:bg-slate-50/80 dark:hover:bg-[#213D13] transition-colors"
                     >
                       <td className="py-3.5 px-4 font-mono text-[11px] text-slate-400 dark:text-emerald-400/80 whitespace-nowrap">
                         #{txn.id}
                       </td>
-                      <td className="py-3.5 px-4 text-slate-600 dark:text-emerald-200 whitespace-nowrap font-medium">
+                      <td className="py-3.5 px-4 text-slate-600 dark:text-emerald-100 whitespace-nowrap font-medium">
                         {formatDate(txn.date)}
                       </td>
                       <td className="py-3.5 px-4">
@@ -425,8 +425,8 @@ export const Transactions: React.FC = () => {
                         <span
                           className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-bold ${
                             isIncome
-                              ? 'bg-emerald-100/80 text-emerald-800 dark:bg-[#c2f138]/20 dark:text-[#c2f138]'
-                              : 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-400'
+                              ? 'bg-[#294C18] text-[#BCE842]'
+                              : 'bg-rose-950/60 text-rose-400 border border-rose-900/40'
                           }`}
                         >
                           {isIncome ? 'Income' : 'Expense'}
@@ -439,7 +439,7 @@ export const Transactions: React.FC = () => {
                         <span
                           className={
                             isIncome
-                              ? 'text-emerald-600 dark:text-[#c2f138]'
+                              ? 'text-emerald-600 dark:text-[#BCE842]'
                               : 'text-rose-600 dark:text-rose-400'
                           }
                         >
@@ -453,14 +453,14 @@ export const Transactions: React.FC = () => {
                               setEditingTransaction(txn);
                               setIsEditModalOpen(true);
                             }}
-                            className="p-1.5 text-slate-400 hover:text-blue-600 dark:hover:text-[#c2f138] hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded transition-colors"
+                            className="p-1.5 text-slate-400 hover:text-emerald-600 dark:hover:text-[#BCE842] hover:bg-slate-100 dark:hover:bg-[#294C18] rounded transition-colors"
                             title="Edit transaction"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => setDeletingId(txn.id)}
-                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded transition-colors"
+                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-100 dark:hover:bg-[#294C18] rounded transition-colors"
                             title="Delete transaction"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -476,7 +476,7 @@ export const Transactions: React.FC = () => {
         </div>
 
         {/* Pagination Bar */}
-        <div className="px-4 py-3 bg-slate-50/50 dark:bg-[#093727]/60 border-t border-slate-200 dark:border-[#0d4a34] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <div className="px-4 py-3 bg-slate-50/50 dark:bg-[#182E0E]/60 border-t border-slate-200 dark:border-[#294C18] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
           <div className="text-slate-500 dark:text-emerald-300/80 font-medium">
             Showing Page <span className="font-bold text-slate-800 dark:text-white">{page}</span> of{' '}
             <span className="font-bold text-slate-800 dark:text-white">{paginationInfo.totalPages}</span> ({paginationInfo.total} items)
@@ -486,21 +486,21 @@ export const Transactions: React.FC = () => {
             <button
               onClick={() => setPage(p => Math.max(1, p - 1))}
               disabled={page <= 1}
-              className="p-1.5 rounded-xl border border-slate-200 dark:border-[#0d4a34] bg-white dark:bg-[#06281c] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-[#093727] transition-colors"
+              className="p-1.5 rounded-xl border border-slate-200 dark:border-[#294C18] bg-white dark:bg-[#182E0E] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-[#294C18] transition-colors"
               aria-label="Previous page"
             >
-              <ChevronLeft className="w-4 h-4 text-slate-700 dark:text-emerald-200" />
+              <ChevronLeft className="w-4 h-4 text-slate-700 dark:text-emerald-100" />
             </button>
-            <div className="px-3 py-1 font-mono tabular-nums font-bold text-slate-700 dark:text-[#c2f138]">
+            <div className="px-3 py-1 font-mono tabular-nums font-bold text-slate-700 dark:text-[#BCE842]">
               {page} / {paginationInfo.totalPages}
             </div>
             <button
               onClick={() => setPage(p => Math.min(paginationInfo.totalPages, p + 1))}
               disabled={page >= paginationInfo.totalPages}
-              className="p-1.5 rounded-xl border border-slate-200 dark:border-[#0d4a34] bg-white dark:bg-[#06281c] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-[#093727] transition-colors"
+              className="p-1.5 rounded-xl border border-slate-200 dark:border-[#294C18] bg-white dark:bg-[#182E0E] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-[#294C18] transition-colors"
               aria-label="Next page"
             >
-              <ChevronRight className="w-4 h-4 text-slate-700 dark:text-emerald-200" />
+              <ChevronRight className="w-4 h-4 text-slate-700 dark:text-emerald-100" />
             </button>
           </div>
         </div>
@@ -522,10 +522,10 @@ export const Transactions: React.FC = () => {
       {deletingId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-xs"
             onClick={() => setDeletingId(null)}
           />
-          <div className="relative bg-white dark:bg-[#06281c] rounded-2xl p-6 max-w-sm w-full border border-slate-200 dark:border-[#0d4a34] shadow-xl z-10 animate-in fade-in zoom-in-95">
+          <div className="relative bg-white dark:bg-[#1B3111] rounded-2xl p-6 max-w-sm w-full border border-slate-200 dark:border-[#294C18] shadow-xl z-10 animate-in fade-in zoom-in-95">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">Confirm Deletion</h3>
             <p className="text-xs text-slate-500 dark:text-emerald-300/80 mt-2">
               Are you sure you want to delete transaction #{deletingId}? This action will permanently remove it from your balance.
@@ -533,7 +533,7 @@ export const Transactions: React.FC = () => {
             <div className="mt-5 flex items-center justify-end gap-3">
               <button
                 onClick={() => setDeletingId(null)}
-                className="px-3.5 py-2 text-xs font-semibold text-slate-600 dark:text-emerald-300 hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded-lg transition-colors"
+                className="px-3.5 py-2 text-xs font-semibold text-slate-600 dark:text-emerald-200 hover:bg-slate-100 dark:hover:bg-[#294C18] rounded-lg transition-colors"
               >
                 Cancel
               </button>

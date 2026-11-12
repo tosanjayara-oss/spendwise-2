@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Target,
   Plus,
   AlertTriangle,
   CheckCircle2,
@@ -152,7 +151,7 @@ export const Budgets: React.FC = () => {
 
         <button
           onClick={handleOpenAdd}
-          className="flex items-center gap-2 px-4 py-2.5 bg-[#c2f138] hover:bg-[#b1df2f] text-[#06281c] text-xs font-black rounded-xl shadow-sm shadow-[#c2f138]/20 transition-all whitespace-nowrap self-start sm:self-auto"
+          className="flex items-center gap-2 px-4 py-2.5 bg-[#BCE842] hover:bg-[#A6D42E] text-[#14240B] text-xs font-black rounded-xl shadow-sm shadow-[#BCE842]/20 transition-all whitespace-nowrap self-start sm:self-auto"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Set Category Budget</span>
@@ -160,10 +159,10 @@ export const Budgets: React.FC = () => {
       </div>
 
       {/* Aggregate Overview Card */}
-      <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-4 border-b border-slate-100 dark:border-[#0d4a34]">
+      <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-4 border-b border-slate-100 dark:border-[#294C18]">
           <div>
-            <span className="text-xs font-bold text-slate-500 dark:text-emerald-300/80 uppercase tracking-wider">
+            <span className="text-xs font-bold text-slate-500 dark:text-[#A3D977]/90 uppercase tracking-wider">
               Total Monthly Budget Limit
             </span>
             <div className="text-2xl font-extrabold text-slate-900 dark:text-white font-mono mt-1 tabular-nums">
@@ -171,7 +170,7 @@ export const Budgets: React.FC = () => {
             </div>
           </div>
           <div>
-            <span className="text-xs font-bold text-slate-500 dark:text-emerald-300/80 uppercase tracking-wider">
+            <span className="text-xs font-bold text-slate-500 dark:text-[#A3D977]/90 uppercase tracking-wider">
               Total Spent in Categories
             </span>
             <div className="text-2xl font-extrabold text-slate-900 dark:text-white font-mono mt-1 tabular-nums">
@@ -179,10 +178,10 @@ export const Budgets: React.FC = () => {
             </div>
           </div>
           <div>
-            <span className="text-xs font-bold text-slate-500 dark:text-emerald-300/80 uppercase tracking-wider">
+            <span className="text-xs font-bold text-slate-500 dark:text-[#A3D977]/90 uppercase tracking-wider">
               Remaining Safe Spending
             </span>
-            <div className={`text-2xl font-extrabold font-mono mt-1 tabular-nums ${totalRemaining > 0 ? 'text-emerald-600 dark:text-[#c2f138]' : 'text-rose-600 dark:text-rose-400'}`}>
+            <div className={`text-2xl font-extrabold font-mono mt-1 tabular-nums ${totalRemaining > 0 ? 'text-emerald-600 dark:text-[#BCE842]' : 'text-rose-600 dark:text-rose-400'}`}>
               {formatCurrency(totalRemaining, currency, currencySymbol)}
             </div>
           </div>
@@ -200,20 +199,20 @@ export const Budgets: React.FC = () => {
                 {exceededCount} Category Exceeded
               </span>
             ) : (
-              <span className="text-emerald-600 dark:text-[#c2f138] flex items-center gap-1 font-bold">
+              <span className="text-emerald-600 dark:text-[#BCE842] flex items-center gap-1 font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 All Budgets On Track
               </span>
             )}
           </div>
-          <div className="w-full bg-slate-100 dark:bg-[#093727] rounded-full h-3 overflow-hidden">
+          <div className="w-full bg-slate-100 dark:bg-[#182E0E] rounded-full h-3 overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-300 ${
                 overallPercentage > 100
                   ? 'bg-rose-500'
                   : overallPercentage > 80
                   ? 'bg-amber-500'
-                  : 'bg-[#c2f138]'
+                  : 'bg-[#BCE842]'
               }`}
               style={{ width: `${Math.min(100, overallPercentage)}%` }}
             />
@@ -232,18 +231,18 @@ export const Budgets: React.FC = () => {
           return (
             <div
               key={budget.id}
-              className={`bg-white dark:bg-[#06281c] rounded-2xl p-5 border shadow-sm flex flex-col justify-between transition-all ${
+              className={`bg-white dark:bg-[#1B3111] rounded-2xl p-5 border shadow-sm flex flex-col justify-between transition-all ${
                 isOver
-                  ? 'border-rose-300 dark:border-rose-800/60 bg-rose-50/20 dark:bg-rose-950/20'
-                  : 'border-emerald-900/10 dark:border-[#0d4a34] hover:border-[#125e43]'
+                  ? 'border-rose-300 dark:border-rose-900/80 bg-rose-50/20 dark:bg-rose-950/40'
+                  : 'border-emerald-900/10 dark:border-[#294C18] hover:border-[#3B6622]'
               }`}
             >
               <div>
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-[#0d4a34]">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-[#294C18]">
                   <div className="flex items-center gap-2">
                     <div
                       className={`w-3 h-3 rounded-full shrink-0 ${
-                        isOver ? 'bg-rose-500' : isNearLimit ? 'bg-amber-500' : 'bg-[#c2f138]'
+                        isOver ? 'bg-rose-500' : isNearLimit ? 'bg-amber-500' : 'bg-[#BCE842]'
                       }`}
                     />
                     <h3 className="font-bold text-sm text-slate-900 dark:text-white truncate">
@@ -253,14 +252,14 @@ export const Budgets: React.FC = () => {
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => handleOpenEdit(budget)}
-                      className="p-1.5 text-slate-400 hover:text-blue-600 dark:hover:text-[#c2f138] hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded-lg transition-colors"
+                      className="p-1.5 text-slate-400 hover:text-emerald-600 dark:hover:text-[#BCE842] hover:bg-slate-100 dark:hover:bg-[#294C18] rounded-lg transition-colors"
                       title="Edit budget limit"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleDelete(budget.id, budget.category)}
-                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded-lg transition-colors"
+                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-100 dark:hover:bg-[#294C18] rounded-lg transition-colors"
                       title="Delete budget"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -277,15 +276,15 @@ export const Budgets: React.FC = () => {
                   </div>
                   <div className="flex items-baseline justify-between text-xs text-slate-500 dark:text-emerald-300/80">
                     <span className="font-semibold">Limit:</span>
-                    <span className="font-mono tabular-nums font-bold text-slate-700 dark:text-emerald-200">
+                    <span className="font-mono tabular-nums font-bold text-slate-700 dark:text-emerald-100">
                       {formatCurrency(budget.monthlyLimit, currency, currencySymbol)}
                     </span>
                   </div>
-                  <div className="flex items-baseline justify-between text-xs pt-1 border-t border-slate-100 dark:border-[#0d4a34]">
+                  <div className="flex items-baseline justify-between text-xs pt-1 border-t border-slate-100 dark:border-[#294C18]">
                     <span className="text-slate-500 dark:text-emerald-300/80 font-semibold">Remaining:</span>
                     <span
                       className={`font-mono tabular-nums font-bold ${
-                        isOver ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-[#c2f138]'
+                        isOver ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-[#BCE842]'
                       }`}
                     >
                       {isOver
@@ -296,7 +295,7 @@ export const Budgets: React.FC = () => {
                 </div>
 
                 <div className="mt-4 space-y-1">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 dark:text-emerald-400">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 dark:text-emerald-300">
                     <span>{percentage}% utilized</span>
                     {isOver && (
                       <span className="text-rose-600 dark:text-rose-400 flex items-center gap-1">
@@ -310,10 +309,10 @@ export const Budgets: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <div className="w-full bg-slate-100 dark:bg-[#093727] rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-slate-100 dark:bg-[#182E0E] rounded-full h-2 overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all duration-300 ${
-                        isOver ? 'bg-rose-500' : isNearLimit ? 'bg-amber-500' : 'bg-[#c2f138]'
+                        isOver ? 'bg-rose-500' : isNearLimit ? 'bg-amber-500' : 'bg-[#BCE842]'
                       }`}
                       style={{ width: `${Math.min(100, percentage)}%` }}
                     />
@@ -322,8 +321,8 @@ export const Budgets: React.FC = () => {
               </div>
 
               {isOver && (
-                <div className="mt-4 p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/40 text-[11px] text-rose-700 dark:text-rose-300 flex items-start gap-2">
-                  <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                <div className="mt-4 p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900/60 text-[11px] text-rose-700 dark:text-rose-300 flex items-start gap-2">
+                  <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-rose-400" />
                   <p>
                     Spending exceeded by {formatCurrency(budget.spent - budget.monthlyLimit, currency, currencySymbol)}. Review recent transactions.
                   </p>
@@ -338,18 +337,18 @@ export const Budgets: React.FC = () => {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-xs"
             onClick={() => setIsModalOpen(false)}
           />
 
-          <div className="relative w-full max-w-md bg-white dark:bg-[#06281c] rounded-3xl p-6 border border-slate-200 dark:border-[#0d4a34] shadow-xl z-10 animate-in fade-in zoom-in-95">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-[#0d4a34] mb-4">
+          <div className="relative w-full max-w-md bg-white dark:bg-[#1B3111] rounded-3xl p-6 border border-slate-200 dark:border-[#294C18] shadow-2xl z-10 animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-[#294C18] mb-4">
               <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 {editingBudget ? 'Adjust Budget Limit' : 'Configure New Budget'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-emerald-200 rounded-lg transition-colors"
+                className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-[#BCE842] rounded-lg transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -363,14 +362,14 @@ export const Budgets: React.FC = () => {
               )}
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 dark:text-emerald-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-slate-600 dark:text-[#A3D977] uppercase tracking-wider mb-1.5">
                   Category
                 </label>
                 <select
                   value={categoryInput}
                   onChange={e => setCategoryInput(e.target.value)}
                   disabled={!!editingBudget}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] rounded-xl text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#c2f138]"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] rounded-xl text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#BCE842]"
                 >
                   {categories.map(c => (
                     <option key={c.id} value={c.name}>
@@ -381,11 +380,11 @@ export const Budgets: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 dark:text-emerald-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-slate-600 dark:text-[#A3D977] uppercase tracking-wider mb-1.5">
                   Monthly Limit ({currencySymbol}) *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-slate-400 dark:text-emerald-500 font-mono text-base">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-slate-400 dark:text-[#BCE842] font-mono text-base">
                     {currencySymbol}
                   </span>
                   <input
@@ -393,7 +392,7 @@ export const Budgets: React.FC = () => {
                     value={limitInput}
                     onChange={e => setLimitInput(e.target.value)}
                     placeholder="e.g. 15000"
-                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] rounded-xl text-base font-black font-mono tabular-nums text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#c2f138]"
+                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] rounded-xl text-base font-black font-mono tabular-nums text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#BCE842]"
                   />
                 </div>
               </div>
@@ -402,14 +401,14 @@ export const Budgets: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-emerald-300 hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded-lg transition-colors"
+                  className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-emerald-200 hover:bg-slate-100 dark:hover:bg-[#294C18] rounded-lg transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2 text-xs font-black bg-[#c2f138] hover:bg-[#b1df2f] text-[#06281c] rounded-xl transition-all shadow-sm disabled:opacity-50"
+                  className="px-5 py-2 text-xs font-black bg-[#BCE842] hover:bg-[#A6D42E] text-[#14240B] rounded-xl transition-all shadow-sm disabled:opacity-50"
                 >
                   {saving ? 'Saving...' : editingBudget ? 'Save Changes' : 'Create Budget'}
                 </button>

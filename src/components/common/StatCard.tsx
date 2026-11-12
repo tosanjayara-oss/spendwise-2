@@ -21,19 +21,21 @@ export const StatCard: React.FC<StatCardProps> = ({
   icon,
   accentColor = 'neutral'
 }) => {
-  let accentBorder = 'border-emerald-900/10 dark:border-[#0d4a34]';
-  let iconBg = 'bg-[#0d5c3a]/10 text-[#0d5c3a] dark:bg-[#c2f138]/15 dark:text-[#c2f138]';
+  let accentBorder = 'border-emerald-900/10 dark:border-[#294C18]';
+  let iconBg = 'bg-emerald-500/10 text-emerald-700 dark:bg-[#294C18] dark:text-[#BCE842]';
 
   if (accentColor === 'green') {
-    iconBg = 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-[#c2f138]';
+    iconBg = 'bg-emerald-50 text-emerald-700 dark:bg-[#294C18] dark:text-[#BCE842]';
   } else if (accentColor === 'red') {
     iconBg = 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400';
+  } else if (accentColor === 'blue') {
+    iconBg = 'bg-emerald-50 text-emerald-700 dark:bg-[#294C18] dark:text-[#BCE842]';
   }
 
   return (
-    <div className={`bg-white dark:bg-[#06281c] rounded-2xl p-5 border ${accentBorder} shadow-sm transition-all duration-150 hover:shadow-md hover:border-[#125e43] flex flex-col justify-between`}>
+    <div className={`bg-white dark:bg-[#1B3111] rounded-2xl p-5 border ${accentBorder} shadow-sm transition-all duration-150 hover:shadow-md hover:border-[#3B6622] flex flex-col justify-between`}>
       <div className="flex items-center justify-between gap-3">
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-emerald-300/80">
+        <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#A3D977]/90">
           {title}
         </span>
         {icon && (
@@ -53,19 +55,19 @@ export const StatCard: React.FC<StatCardProps> = ({
             {trend && (
               <span
                 className={`font-bold tabular-nums ${
-                  trend.isPositive ? 'text-emerald-600 dark:text-[#c2f138]' : 'text-rose-600 dark:text-rose-400'
+                  trend.isPositive ? 'text-emerald-600 dark:text-[#BCE842]' : 'text-rose-600 dark:text-rose-400'
                 }`}
               >
                 {trend.value}
               </span>
             )}
             {trend?.label && (
-              <span className="text-slate-500 dark:text-emerald-400/70">
+              <span className="text-slate-500 dark:text-emerald-300/70">
                 {trend.label}
               </span>
             )}
             {!trend && subtext && (
-              <span className="text-slate-500 dark:text-emerald-400/70 truncate">
+              <span className="text-slate-500 dark:text-emerald-300/70 truncate">
                 {subtext}
               </span>
             )}

@@ -102,9 +102,9 @@ export const Settings: React.FC = () => {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Section 1: Profile Information */}
-        <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm space-y-5">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 dark:border-[#0d4a34]">
-            <User className="w-5 h-5 text-[#0d5c3a] dark:text-[#c2f138]" />
+        <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm space-y-5">
+          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 dark:border-[#294C18]">
+            <User className="w-5 h-5 text-[#BCE842]" />
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
               Profile Information
             </h3>
@@ -114,31 +114,31 @@ export const Settings: React.FC = () => {
             <img
               src={profile?.avatarUrl || '/src/assets/images/user_avatar_1794458059728.jpg'}
               alt={profile?.name || 'Profile Avatar'}
-              className="w-20 h-20 rounded-2xl object-cover border-2 border-[#c2f138]/50 shadow-md shrink-0"
+              className="w-20 h-20 rounded-2xl object-cover border-2 border-[#BCE842]/80 shadow-md shrink-0"
               referrerPolicy="no-referrer"
             />
             <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-600 dark:text-emerald-300 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-bold text-slate-600 dark:text-[#A3D977] uppercase tracking-wider mb-1">
                   Full Name
                 </label>
                 <input
                   type="text"
                   value={formData.name || ''}
                   onChange={e => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#c2f138]"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#BCE842]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 dark:text-emerald-300 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-bold text-slate-600 dark:text-[#A3D977] uppercase tracking-wider mb-1">
                   Email Address
                 </label>
                 <input
                   type="email"
                   value={formData.email || ''}
                   onChange={e => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#c2f138]"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#BCE842]"
                 />
               </div>
             </div>
@@ -146,7 +146,7 @@ export const Settings: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-emerald-300 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-[#A3D977] uppercase tracking-wider mb-1">
                 Role / Profession
               </label>
               <input
@@ -154,12 +154,12 @@ export const Settings: React.FC = () => {
                 value={formData.occupation || ''}
                 onChange={e => setFormData({ ...formData, occupation: e.target.value })}
                 placeholder="e.g. Senior Software Engineer"
-                className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#c2f138]"
+                className="w-full px-3 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#BCE842]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-emerald-300 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-[#A3D977] uppercase tracking-wider mb-1">
                 Location
               </label>
               <input
@@ -167,28 +167,28 @@ export const Settings: React.FC = () => {
                 value={formData.location || ''}
                 onChange={e => setFormData({ ...formData, location: e.target.value })}
                 placeholder="e.g. Bengaluru, India"
-                className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#c2f138]"
+                className="w-full px-3 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-xs font-semibold rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#BCE842]"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-600 dark:text-emerald-300 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-slate-600 dark:text-[#A3D977] uppercase tracking-wider mb-1">
               Monthly Savings Target ({formData.currencySymbol})
             </label>
             <input
               type="number"
               value={formData.monthlySavingsGoal || ''}
               onChange={e => setFormData({ ...formData, monthlySavingsGoal: Number(e.target.value) })}
-              className="w-full sm:w-1/2 px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-sm font-extrabold font-mono text-slate-900 dark:text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138]"
+              className="w-full sm:w-1/2 px-3 py-2 bg-slate-50 dark:bg-[#182E0E] border border-slate-200 dark:border-[#294C18] text-sm font-extrabold font-mono text-slate-900 dark:text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#BCE842]"
             />
           </div>
         </div>
 
         {/* Section 2: Currency Selection */}
-        <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm space-y-4">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 dark:border-[#0d4a34]">
-            <Coins className="w-5 h-5 text-emerald-600 dark:text-[#c2f138]" />
+        <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm space-y-4">
+          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 dark:border-[#294C18]">
+            <Coins className="w-5 h-5 text-[#BCE842]" />
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
               Currency Selection
             </h3>
@@ -211,29 +211,29 @@ export const Settings: React.FC = () => {
                 onClick={() => handleCurrencyChange(curr.code as any)}
                 className={`p-3.5 rounded-2xl border text-left transition-all ${
                   formData.currency === curr.code
-                    ? 'border-[#c2f138] bg-[#0d4a34] text-[#c2f138] shadow-xs'
-                    : 'border-slate-200 dark:border-[#0d4a34] hover:border-[#125e43]'
+                    ? 'border-[#BCE842] bg-[#294C18] text-[#BCE842] shadow-xs'
+                    : 'border-slate-200 dark:border-[#294C18] hover:border-[#3B6622]'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-black text-lg font-mono">{curr.symbol}</span>
                   {curr.badge && (
-                    <span className="text-[10px] bg-[#c2f138]/20 text-[#c2f138] font-bold px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] bg-[#BCE842]/20 text-[#BCE842] font-bold px-1.5 py-0.5 rounded">
                       {curr.badge}
                     </span>
                   )}
                 </div>
                 <div className="font-extrabold text-xs mt-2 text-slate-900 dark:text-white">{curr.code}</div>
-                <div className="text-[11px] text-slate-400 dark:text-emerald-400/60">{curr.name}</div>
+                <div className="text-[11px] text-slate-400 dark:text-emerald-300/60">{curr.name}</div>
               </button>
             ))}
           </div>
         </div>
 
         {/* Section 3: Interface Theme */}
-        <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm space-y-4">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 dark:border-[#0d4a34]">
-            <Sliders className="w-5 h-5 text-indigo-600 dark:text-[#c2f138]" />
+        <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm space-y-4">
+          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 dark:border-[#294C18]">
+            <Sliders className="w-5 h-5 text-[#BCE842]" />
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
               Interface Theme
             </h3>
@@ -241,8 +241,8 @@ export const Settings: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { id: 'light', label: 'Clean Mint Light', desc: 'Light mint background & forest sidebar', icon: Sun },
-              { id: 'dark', label: 'Dark Forest Theme', desc: 'Deep obsidian green & electric lime', icon: Moon },
+              { id: 'light', label: 'Artichoke Light', desc: 'Light background with Artichoke Green highlights', icon: Sun },
+              { id: 'dark', label: 'Artichoke Botanical', desc: 'Deep Artichoke Green & Lime aesthetic', icon: Moon },
               { id: 'system', label: 'System Default', desc: 'Syncs with operating system theme', icon: Sliders }
             ].map(t => {
               const Icon = t.icon;
@@ -254,11 +254,11 @@ export const Settings: React.FC = () => {
                   onClick={() => setTheme(t.id as any)}
                   className={`p-4 rounded-2xl border text-left transition-all ${
                     isSelected
-                      ? 'border-[#c2f138] bg-[#0d4a34] text-[#c2f138] shadow-xs'
-                      : 'border-slate-200 dark:border-[#0d4a34] hover:border-[#125e43]'
+                      ? 'border-[#BCE842] bg-[#294C18] text-[#BCE842] shadow-xs'
+                      : 'border-slate-200 dark:border-[#294C18] hover:border-[#3B6622]'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 mb-2 ${isSelected ? 'text-[#c2f138]' : 'text-slate-400'}`} />
+                  <Icon className={`w-5 h-5 mb-2 ${isSelected ? 'text-[#BCE842]' : 'text-slate-400'}`} />
                   <div className="text-xs font-bold text-slate-900 dark:text-white">{t.label}</div>
                   <div className="text-[11px] text-slate-500 dark:text-emerald-300/80 mt-0.5">{t.desc}</div>
                 </button>
@@ -268,16 +268,16 @@ export const Settings: React.FC = () => {
         </div>
 
         {/* Section 4: Notification Preferences */}
-        <div className="bg-white dark:bg-[#06281c] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm space-y-4">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 dark:border-[#0d4a34]">
-            <Bell className="w-5 h-5 text-amber-500" />
+        <div className="bg-white dark:bg-[#1B3111] rounded-2xl p-6 border border-emerald-900/10 dark:border-[#294C18] shadow-sm space-y-4">
+          <div className="flex items-center gap-2.5 pb-4 border-b border-slate-100 dark:border-[#294C18]">
+            <Bell className="w-5 h-5 text-[#BCE842]" />
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
               Alerts & Notifications
             </h3>
           </div>
 
           <div className="space-y-4 text-xs">
-            <label className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#093727] cursor-pointer">
+            <label className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#182E0E] cursor-pointer">
               <div>
                 <span className="font-bold text-slate-800 dark:text-slate-200 block">
                   Budget Overrun Warnings
@@ -295,11 +295,11 @@ export const Settings: React.FC = () => {
                     notifications: { ...prev.notifications!, budgetAlerts: e.target.checked }
                   }))
                 }
-                className="w-4 h-4 text-[#0d5c3a] rounded"
+                className="w-4 h-4 text-[#BCE842] rounded accent-[#BCE842]"
               />
             </label>
 
-            <label className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#093727] cursor-pointer">
+            <label className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#182E0E] cursor-pointer">
               <div>
                 <span className="font-bold text-slate-800 dark:text-slate-200 block">
                   Weekly Summary Reports
@@ -317,7 +317,7 @@ export const Settings: React.FC = () => {
                     notifications: { ...prev.notifications!, weeklyReport: e.target.checked }
                   }))
                 }
-                className="w-4 h-4 text-[#0d5c3a] rounded"
+                className="w-4 h-4 text-[#BCE842] rounded accent-[#BCE842]"
               />
             </label>
           </div>
@@ -328,7 +328,7 @@ export const Settings: React.FC = () => {
           <button
             type="button"
             onClick={() => setResetConfirm(true)}
-            className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold text-rose-600 dark:text-[#BCE842] hover:bg-slate-100 dark:hover:bg-[#294C18] rounded-xl transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset Demo Data to Default</span>
@@ -337,7 +337,7 @@ export const Settings: React.FC = () => {
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-[#c2f138] hover:bg-[#b1df2f] text-[#06281c] font-black text-xs rounded-xl shadow-md shadow-[#c2f138]/20 transition-all disabled:opacity-50"
+            className="flex items-center gap-2 px-6 py-2.5 bg-[#BCE842] hover:bg-[#A6D42E] text-[#14240B] font-black text-xs rounded-xl shadow-md shadow-[#BCE842]/20 transition-all disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             <span>{saving ? 'Saving Preferences...' : 'Save Settings'}</span>
@@ -349,10 +349,10 @@ export const Settings: React.FC = () => {
       {resetConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-xs"
             onClick={() => setResetConfirm(false)}
           />
-          <div className="relative bg-white dark:bg-[#06281c] rounded-3xl p-6 max-w-sm w-full border border-slate-200 dark:border-[#0d4a34] shadow-xl z-10 animate-in fade-in zoom-in-95">
+          <div className="relative bg-white dark:bg-[#1B3111] rounded-3xl p-6 max-w-sm w-full border border-slate-200 dark:border-[#294C18] shadow-2xl z-10 animate-in fade-in zoom-in-95">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">Reset Demo Data</h3>
             <p className="text-xs text-slate-500 dark:text-emerald-300/80 mt-2">
               This will reseed all mock transactions, category budgets, and initial dummy values.
@@ -360,7 +360,7 @@ export const Settings: React.FC = () => {
             <div className="mt-5 flex items-center justify-end gap-3">
               <button
                 onClick={() => setResetConfirm(false)}
-                className="px-3.5 py-2 text-xs font-semibold text-slate-600 dark:text-emerald-300 hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded-lg"
+                className="px-3.5 py-2 text-xs font-semibold text-slate-600 dark:text-emerald-200 hover:bg-slate-100 dark:hover:bg-[#294C18] rounded-lg"
               >
                 Cancel
               </button>

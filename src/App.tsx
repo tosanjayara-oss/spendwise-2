@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { AppProvider } from './context/AppContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
@@ -18,22 +19,24 @@ export default function App() {
       <AuthProvider>
         <AppProvider>
           <Routes>
-            {/* Auth Routes */}
+            {/* Public Unauthenticated Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
-            {/* App Layout Routes */}
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Navigate to="/dashboard" replace />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="transactions" element={<Transactions />} />
-              <Route path="add-transaction" element={<AddTransaction />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="budgets" element={<Budgets />} />
-              <Route path="settings" element={<Settings />} />
+            {/* Protected Routes Wrapper */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Navigate to="/dashboard" replace />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="transactions" element={<Transactions />} />
+                <Route path="add-transaction" element={<AddTransaction />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="budgets" element={<Budgets />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
             </Route>
 
-            {/* Fallback */}
+            {/* Fallback wildcard */}
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </AppProvider>
