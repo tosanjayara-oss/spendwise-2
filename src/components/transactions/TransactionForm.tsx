@@ -3,10 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   ArrowDownCircle,
   ArrowUpCircle,
-  Calendar,
-  CreditCard,
-  FileText,
-  Tag,
   Check,
   AlertCircle
 } from 'lucide-react';
@@ -44,14 +40,12 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Load categories
   useEffect(() => {
     const loadCategories = async () => {
       try {
         const res = await transactionService.getCategories();
         if (res.data) {
           setCategories(res.data);
-          // Set default category if none chosen
           if (!category) {
             const firstOfType = res.data.find(c => c.type === type);
             if (firstOfType) setCategory(firstOfType.name);
@@ -64,7 +58,6 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
     loadCategories();
   }, [type]);
 
-  // When type changes, switch to first category of that type if current category doesn't match
   const handleTypeChange = (newType: TransactionType) => {
     setType(newType);
     const validCat = categories.find(c => c.type === newType);
@@ -111,7 +104,6 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
     setLoading(true);
     try {
       if (initialData?.id) {
-        // Edit existing transaction
         await transactionService.updateTransaction(initialData.id, {
           type,
           amount: parseFloat(amount),
@@ -127,7 +119,6 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           message: `${description} updated successfully.`
         });
       } else {
-        // Create new transaction
         await transactionService.createTransaction({
           type,
           amount: parseFloat(amount),
@@ -140,7 +131,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
         addToast({
           type: 'success',
           title: 'Transaction Recorded',
-          message: `₹${Number(amount).toLocaleString('en-IN')} ${type} recorded.`
+          message: `${currencySymbol}${Number(amount).toLocaleString('en-IN')} ${type} recorded.`
         });
       }
 
@@ -168,17 +159,17 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Transaction Type Segmented Toggle */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-emerald-300/80 mb-2">
           Transaction Type
         </label>
-        <div className="grid grid-cols-2 gap-3 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+        <div className="grid grid-cols-2 gap-3 p-1 bg-slate-100 dark:bg-[#093727] rounded-xl border border-emerald-900/10 dark:border-[#0d4a34]">
           <button
             type="button"
             onClick={() => handleTypeChange('expense')}
-            className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all ${
+            className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-extrabold transition-all ${
               type === 'expense'
                 ? 'bg-rose-600 text-white shadow-sm'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                : 'text-slate-600 dark:text-emerald-200 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <ArrowDownCircle className="w-4 h-4" />
@@ -187,10 +178,10 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           <button
             type="button"
             onClick={() => handleTypeChange('income')}
-            className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all ${
+            className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-extrabold transition-all ${
               type === 'income'
-                ? 'bg-emerald-600 text-white shadow-sm'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-[#c2f138] text-[#06281c] shadow-sm'
+                : 'text-slate-600 dark:text-emerald-200 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <ArrowUpCircle className="w-4 h-4" />
@@ -201,11 +192,11 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
       {/* Amount Field */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-emerald-300/80 mb-2">
           Amount ({currencySymbol}) *
         </label>
         <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-slate-400 font-mono">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-slate-400 dark:text-emerald-500 font-mono">
             {currencySymbol}
           </span>
           <input
@@ -217,13 +208,13 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
               if (errors.amount) setErrors(prev => ({ ...prev, amount: '' }));
             }}
             placeholder="0.00"
-            className={`w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-800/80 border text-2xl font-bold font-mono tabular-nums rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white transition-colors ${
-              errors.amount ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-200 dark:border-slate-700'
+            className={`w-full pl-11 pr-4 py-3 bg-white dark:bg-[#093727] border text-2xl font-black font-mono tabular-nums rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white transition-colors ${
+              errors.amount ? 'border-rose-400' : 'border-slate-200 dark:border-[#0d4a34]'
             }`}
           />
         </div>
         {errors.amount && (
-          <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1 font-medium">
+          <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1 font-bold">
             <AlertCircle className="w-3.5 h-3.5 shrink-0" />
             {errors.amount}
           </p>
@@ -232,25 +223,23 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
       {/* Description Field */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-emerald-300/80 mb-2">
           Description / Merchant *
         </label>
-        <div className="relative">
-          <input
-            type="text"
-            value={description}
-            onChange={e => {
-              setDescription(e.target.value);
-              if (errors.description) setErrors(prev => ({ ...prev, description: '' }));
-            }}
-            placeholder={type === 'expense' ? 'e.g. Swiggy, BESCOM Electricity, Amazon' : 'e.g. Monthly Salary, Freelance project'}
-            className={`w-full px-4 py-2.5 bg-white dark:bg-slate-800/80 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white transition-colors ${
-              errors.description ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-200 dark:border-slate-700'
-            }`}
-          />
-        </div>
+        <input
+          type="text"
+          value={description}
+          onChange={e => {
+            setDescription(e.target.value);
+            if (errors.description) setErrors(prev => ({ ...prev, description: '' }));
+          }}
+          placeholder={type === 'expense' ? 'e.g. Swiggy, BESCOM Electricity, Amazon' : 'e.g. Tech Salary, Freelance project'}
+          className={`w-full px-4 py-2.5 bg-white dark:bg-[#093727] border text-sm font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white transition-colors ${
+            errors.description ? 'border-rose-400' : 'border-slate-200 dark:border-[#0d4a34]'
+          }`}
+        />
         {errors.description && (
-          <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1 font-medium">
+          <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1 font-bold">
             <AlertCircle className="w-3.5 h-3.5 shrink-0" />
             {errors.description}
           </p>
@@ -259,58 +248,52 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
       {/* Category & Date Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Category */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-emerald-300/80 mb-2">
             Category *
           </label>
-          <div className="relative">
-            <select
-              value={category}
-              onChange={e => {
-                setCategory(e.target.value);
-                if (errors.category) setErrors(prev => ({ ...prev, category: '' }));
-              }}
-              className={`w-full px-4 py-2.5 bg-white dark:bg-slate-800/80 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white transition-colors ${
-                errors.category ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-200 dark:border-slate-700'
-              }`}
-            >
-              <option value="">Select Category</option>
-              {filteredCategories.map(cat => (
-                <option key={cat.id} value={cat.name}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            value={category}
+            onChange={e => {
+              setCategory(e.target.value);
+              if (errors.category) setErrors(prev => ({ ...prev, category: '' }));
+            }}
+            className={`w-full px-4 py-2.5 bg-white dark:bg-[#093727] border text-sm font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white transition-colors ${
+              errors.category ? 'border-rose-400' : 'border-slate-200 dark:border-[#0d4a34]'
+            }`}
+          >
+            <option value="">Select Category</option>
+            {filteredCategories.map(cat => (
+              <option key={cat.id} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
           {errors.category && (
-            <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1 font-medium">
+            <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1 font-bold">
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
               {errors.category}
             </p>
           )}
         </div>
 
-        {/* Date */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-emerald-300/80 mb-2">
             Date *
           </label>
-          <div className="relative">
-            <input
-              type="date"
-              value={date}
-              onChange={e => {
-                setDate(e.target.value);
-                if (errors.date) setErrors(prev => ({ ...prev, date: '' }));
-              }}
-              className={`w-full px-4 py-2.5 bg-white dark:bg-slate-800/80 border text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white transition-colors ${
-                errors.date ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-200 dark:border-slate-700'
-              }`}
-            />
-          </div>
+          <input
+            type="date"
+            value={date}
+            onChange={e => {
+              setDate(e.target.value);
+              if (errors.date) setErrors(prev => ({ ...prev, date: '' }));
+            }}
+            className={`w-full px-4 py-2.5 bg-white dark:bg-[#093727] border text-sm font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white transition-colors ${
+              errors.date ? 'border-rose-400' : 'border-slate-200 dark:border-[#0d4a34]'
+            }`}
+          />
           {errors.date && (
-            <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1 font-medium">
+            <p className="mt-1.5 text-xs text-rose-500 flex items-center gap-1 font-bold">
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
               {errors.date}
             </p>
@@ -320,7 +303,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
       {/* Payment Method Selector */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-emerald-300/80 mb-2">
           Payment Method *
         </label>
         <div className="flex flex-wrap gap-2">
@@ -329,10 +312,10 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
               key={pm}
               type="button"
               onClick={() => setPaymentMethod(pm)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg border transition-all ${
                 paymentMethod === pm
-                  ? 'bg-blue-50 dark:bg-blue-950/50 border-blue-600 text-blue-600 dark:text-blue-400 shadow-xs'
-                  : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600'
+                  ? 'bg-[#c2f138] border-[#c2f138] text-[#06281c] shadow-xs'
+                  : 'bg-white dark:bg-[#093727] border-slate-200 dark:border-[#0d4a34] text-slate-700 dark:text-emerald-200 hover:border-slate-300'
               }`}
             >
               {pm}
@@ -341,9 +324,9 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
         </div>
       </div>
 
-      {/* Notes (Optional) */}
+      {/* Notes */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-emerald-300/80 mb-2">
           Notes (Optional)
         </label>
         <textarea
@@ -351,7 +334,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           value={notes}
           onChange={e => setNotes(e.target.value)}
           placeholder="Add tags, bill reference numbers, or context..."
-          className="w-full px-4 py-2 bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white resize-none transition-colors"
+          className="w-full px-4 py-2 bg-white dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white resize-none transition-colors"
         />
       </div>
 
@@ -361,7 +344,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           <button
             type="button"
             onClick={onSuccess}
-            className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+            className="px-4 py-2 text-sm font-semibold text-slate-600 dark:text-emerald-300 hover:text-slate-900 dark:hover:text-white rounded-lg transition-colors"
           >
             Cancel
           </button>
@@ -369,12 +352,12 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
         <button
           type="submit"
           disabled={loading}
-          className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 text-white font-semibold text-sm rounded-lg shadow-sm transition-all whitespace-nowrap"
+          className="flex items-center gap-2 px-6 py-2.5 bg-[#c2f138] hover:bg-[#b1df2f] text-[#06281c] font-black text-sm rounded-xl shadow-md shadow-[#c2f138]/20 transition-all disabled:opacity-50"
         >
           {loading ? (
-            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            <div className="w-4 h-4 border-2 border-[#06281c]/30 border-t-[#06281c] rounded-full animate-spin" />
           ) : (
-            <Check className="w-4 h-4" />
+            <Check className="w-4 h-4 stroke-[3]" />
           )}
           <span>{initialData ? 'Update Transaction' : 'Save Transaction'}</span>
         </button>

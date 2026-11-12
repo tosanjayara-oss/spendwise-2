@@ -35,7 +35,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
-  const [theme, setThemeState] = useState<'light' | 'dark' | 'system'>('light');
+  const [theme, setThemeState] = useState<'light' | 'dark' | 'system'>('dark');
   const [budgetAlerts, setBudgetAlerts] = useState<{ category: string; limit: number; spent: number }[]>([]);
 
   const triggerRefresh = useCallback(() => {

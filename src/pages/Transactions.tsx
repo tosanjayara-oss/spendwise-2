@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Search,
-  Filter,
   ArrowUpDown,
   Download,
   Trash2,
@@ -11,12 +10,11 @@ import {
   Plus,
   AlertCircle,
   X,
-  Calendar,
-  Check
+  Calendar
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import transactionService from '../services/transactionService';
-import { Transaction, Category, TransactionType, PaymentMethod } from '../types';
+import { Transaction, Category } from '../types';
 import { formatCurrency, formatDate } from '../utils/formatters';
 import TransactionModal from '../components/transactions/TransactionModal';
 
@@ -45,7 +43,6 @@ export const Transactions: React.FC = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  // Fetch categories
   useEffect(() => {
     const fetchCats = async () => {
       try {
@@ -58,7 +55,6 @@ export const Transactions: React.FC = () => {
     fetchCats();
   }, []);
 
-  // Fetch transactions with filters
   useEffect(() => {
     let isMounted = true;
     const fetchTxns = async () => {
@@ -182,38 +178,38 @@ export const Transactions: React.FC = () => {
       {/* Top Header Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
-            Transactions History
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Transactions History Ledger
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Total of {paginationInfo.total} transactions logged in your ledger
+          <p className="text-xs text-slate-500 dark:text-emerald-300/80">
+            Total of {paginationInfo.total} transactions logged in your financial system
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-2 px-3.5 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold rounded-lg shadow-xs transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 bg-white dark:bg-[#06281c] border border-emerald-900/10 dark:border-[#0d4a34] text-slate-700 dark:text-emerald-200 hover:bg-slate-50 dark:hover:bg-[#093727] text-xs font-bold rounded-xl shadow-xs transition-colors"
           >
-            <Download className="w-4 h-4" />
+            <Download className="w-4 h-4 text-[#0d5c3a] dark:text-[#c2f138]" />
             <span>Export CSV</span>
           </button>
           <button
             onClick={openQuickAdd}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#c2f138] hover:bg-[#b1df2f] text-[#06281c] text-xs font-black rounded-xl shadow-sm shadow-[#c2f138]/20 transition-all"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Add Transaction</span>
           </button>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+      <div className="bg-white dark:bg-[#06281c] rounded-2xl p-4 border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Search Box */}
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-emerald-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={search}
@@ -222,7 +218,7 @@ export const Transactions: React.FC = () => {
                 setPage(1);
               }}
               placeholder="Search description, category, ID..."
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white"
             />
           </div>
 
@@ -234,7 +230,7 @@ export const Transactions: React.FC = () => {
                 setSelectedCategory(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white"
+              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white"
             >
               <option value="all">All Categories</option>
               {categories.map(cat => (
@@ -246,33 +242,33 @@ export const Transactions: React.FC = () => {
           </div>
 
           {/* Type Segmented Control */}
-          <div className="flex p-0.5 bg-slate-100 dark:bg-slate-800 rounded-lg">
+          <div className="flex p-1 bg-slate-100 dark:bg-[#093727] rounded-xl border border-emerald-900/10 dark:border-[#0d4a34]">
             <button
               onClick={() => { setSelectedType('all'); setPage(1); }}
-              className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 selectedType === 'all'
-                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
-                  : 'text-slate-500 dark:text-slate-400'
+                  ? 'bg-white dark:bg-[#0d4a34] text-slate-900 dark:text-[#c2f138] shadow-xs'
+                  : 'text-slate-500 dark:text-emerald-300/70'
               }`}
             >
               All Types
             </button>
             <button
               onClick={() => { setSelectedType('income'); setPage(1); }}
-              className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 selectedType === 'income'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-500 dark:text-slate-400'
+                  ? 'bg-[#c2f138] text-[#06281c] shadow-xs'
+                  : 'text-slate-500 dark:text-emerald-300/70'
               }`}
             >
               Income
             </button>
             <button
               onClick={() => { setSelectedType('expense'); setPage(1); }}
-              className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 selectedType === 'expense'
                   ? 'bg-rose-600 text-white shadow-xs'
-                  : 'text-slate-500 dark:text-slate-400'
+                  : 'text-slate-500 dark:text-emerald-300/70'
               }`}
             >
               Expense
@@ -287,7 +283,7 @@ export const Transactions: React.FC = () => {
                 setSelectedPaymentMethod(e.target.value);
                 setPage(1);
               }}
-              className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white"
+              className="w-full px-3 py-2 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c2f138] text-slate-900 dark:text-white"
             >
               <option value="all">All Payment Methods</option>
               <option value="UPI">UPI</option>
@@ -299,31 +295,31 @@ export const Transactions: React.FC = () => {
           </div>
         </div>
 
-        {/* Date Filter Range & Clear */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+        {/* Date Filter Range */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-[#0d4a34] text-xs">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1 font-medium">
-              <Calendar className="w-3.5 h-3.5" /> Date Range:
+            <span className="text-slate-500 dark:text-emerald-300/80 flex items-center gap-1 font-semibold">
+              <Calendar className="w-3.5 h-3.5 text-[#0d5c3a] dark:text-[#c2f138]" /> Date Range:
             </span>
             <input
               type="date"
               value={startDate}
               onChange={e => { setStartDate(e.target.value); setPage(1); }}
-              className="px-2 py-1 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs rounded-md text-slate-700 dark:text-slate-200"
+              className="px-2 py-1 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-lg text-slate-700 dark:text-emerald-100"
             />
             <span className="text-slate-400">to</span>
             <input
               type="date"
               value={endDate}
               onChange={e => { setEndDate(e.target.value); setPage(1); }}
-              className="px-2 py-1 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs rounded-md text-slate-700 dark:text-slate-200"
+              className="px-2 py-1 bg-slate-50 dark:bg-[#093727] border border-slate-200 dark:border-[#0d4a34] text-xs font-semibold rounded-lg text-slate-700 dark:text-emerald-100"
             />
           </div>
 
           {hasActiveFilters && (
             <button
               onClick={resetFilters}
-              className="text-xs text-rose-600 dark:text-rose-400 hover:underline flex items-center gap-1"
+              className="text-xs text-rose-600 dark:text-rose-400 hover:underline font-bold flex items-center gap-1"
             >
               <X className="w-3.5 h-3.5" />
               <span>Reset All Filters</span>
@@ -333,14 +329,14 @@ export const Transactions: React.FC = () => {
       </div>
 
       {/* Transaction Table */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-[#06281c] rounded-2xl border border-emerald-900/10 dark:border-[#0d4a34] shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/75 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <tr className="bg-slate-50/75 dark:bg-[#093727]/80 border-b border-slate-200 dark:border-[#0d4a34] text-[11px] font-bold text-slate-500 dark:text-emerald-300/80 uppercase tracking-wider">
                 <th className="py-3 px-4">Transaction ID</th>
                 <th
-                  className="py-3 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="py-3 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-[#c2f138] transition-colors"
                   onClick={() => handleSort('date')}
                 >
                   <div className="flex items-center gap-1">
@@ -349,7 +345,7 @@ export const Transactions: React.FC = () => {
                   </div>
                 </th>
                 <th
-                  className="py-3 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="py-3 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-[#c2f138] transition-colors"
                   onClick={() => handleSort('description')}
                 >
                   <div className="flex items-center gap-1">
@@ -361,7 +357,7 @@ export const Transactions: React.FC = () => {
                 <th className="py-3 px-4">Type</th>
                 <th className="py-3 px-4">Method</th>
                 <th
-                  className="py-3 px-4 text-right cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="py-3 px-4 text-right cursor-pointer hover:text-slate-900 dark:hover:text-[#c2f138] transition-colors"
                   onClick={() => handleSort('amount')}
                 >
                   <div className="flex items-center justify-end gap-1">
@@ -372,27 +368,27 @@ export const Transactions: React.FC = () => {
                 <th className="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+            <tbody className="divide-y divide-slate-100 dark:divide-[#0d4a34] text-xs">
               {loading ? (
                 <tr>
                   <td colSpan={8} className="py-12 text-center text-slate-400">
-                    <div className="inline-block w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                    <p className="mt-2 text-xs">Loading ledger entries...</p>
+                    <div className="inline-block w-6 h-6 border-2 border-[#c2f138] border-t-transparent rounded-full animate-spin" />
+                    <p className="mt-2 text-xs font-semibold">Loading ledger entries...</p>
                   </td>
                 </tr>
               ) : transactions.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="py-12 text-center">
-                    <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-                    <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <AlertCircle className="w-8 h-8 text-slate-400 dark:text-emerald-500 mx-auto mb-2" />
+                    <p className="text-sm font-bold text-slate-700 dark:text-white">
                       No transactions match your search or filter criteria
                     </p>
-                    <p className="text-xs text-slate-500 mt-1">
+                    <p className="text-xs text-slate-500 dark:text-emerald-300/70 mt-1">
                       Try resetting your filters or add a new transaction.
                     </p>
                     <button
                       onClick={openQuickAdd}
-                      className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg transition-colors"
+                      className="mt-4 px-4 py-2 bg-[#c2f138] text-[#06281c] font-black text-xs rounded-xl transition-all"
                     >
                       Record First Transaction
                     </button>
@@ -404,46 +400,46 @@ export const Transactions: React.FC = () => {
                   return (
                     <tr
                       key={txn.id}
-                      className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors"
+                      className="hover:bg-slate-50/80 dark:hover:bg-[#093727] transition-colors"
                     >
-                      <td className="py-3.5 px-4 font-mono text-[11px] text-slate-400 whitespace-nowrap">
+                      <td className="py-3.5 px-4 font-mono text-[11px] text-slate-400 dark:text-emerald-400/80 whitespace-nowrap">
                         #{txn.id}
                       </td>
-                      <td className="py-3.5 px-4 text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-slate-600 dark:text-emerald-200 whitespace-nowrap font-medium">
                         {formatDate(txn.date)}
                       </td>
                       <td className="py-3.5 px-4">
-                        <div className="font-semibold text-slate-900 dark:text-white max-w-xs truncate">
+                        <div className="font-bold text-slate-900 dark:text-white max-w-xs truncate">
                           {txn.description}
                         </div>
                         {txn.notes && (
-                          <div className="text-[11px] text-slate-400 truncate max-w-xs">
+                          <div className="text-[11px] text-slate-400 dark:text-emerald-400/60 truncate max-w-xs">
                             {txn.notes}
                           </div>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-slate-700 dark:text-emerald-100 whitespace-nowrap font-medium">
                         {txn.category}
                       </td>
                       <td className="py-3.5 px-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold ${
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-bold ${
                             isIncome
-                              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400'
+                              ? 'bg-emerald-100/80 text-emerald-800 dark:bg-[#c2f138]/20 dark:text-[#c2f138]'
                               : 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-400'
                           }`}
                         >
                           {isIncome ? 'Income' : 'Expense'}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-slate-600 dark:text-emerald-200 whitespace-nowrap">
                         {txn.paymentMethod}
                       </td>
-                      <td className="py-3.5 px-4 text-right font-bold font-mono tabular-nums whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-right font-black font-mono tabular-nums whitespace-nowrap">
                         <span
                           className={
                             isIncome
-                              ? 'text-emerald-600 dark:text-emerald-400'
+                              ? 'text-emerald-600 dark:text-[#c2f138]'
                               : 'text-rose-600 dark:text-rose-400'
                           }
                         >
@@ -457,14 +453,14 @@ export const Transactions: React.FC = () => {
                               setEditingTransaction(txn);
                               setIsEditModalOpen(true);
                             }}
-                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 rounded transition-colors"
+                            className="p-1.5 text-slate-400 hover:text-blue-600 dark:hover:text-[#c2f138] hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded transition-colors"
                             title="Edit transaction"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => setDeletingId(txn.id)}
-                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-slate-800 rounded transition-colors"
+                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded transition-colors"
                             title="Delete transaction"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -480,31 +476,31 @@ export const Transactions: React.FC = () => {
         </div>
 
         {/* Pagination Bar */}
-        <div className="px-4 py-3 bg-slate-50/50 dark:bg-slate-800/30 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <div className="text-slate-500 dark:text-slate-400">
-            Showing Page <span className="font-semibold text-slate-800 dark:text-slate-200">{page}</span> of{' '}
-            <span className="font-semibold text-slate-800 dark:text-slate-200">{paginationInfo.totalPages}</span> ({paginationInfo.total} items)
+        <div className="px-4 py-3 bg-slate-50/50 dark:bg-[#093727]/60 border-t border-slate-200 dark:border-[#0d4a34] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div className="text-slate-500 dark:text-emerald-300/80 font-medium">
+            Showing Page <span className="font-bold text-slate-800 dark:text-white">{page}</span> of{' '}
+            <span className="font-bold text-slate-800 dark:text-white">{paginationInfo.totalPages}</span> ({paginationInfo.total} items)
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => setPage(p => Math.max(1, p - 1))}
               disabled={page <= 1}
-              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              className="p-1.5 rounded-xl border border-slate-200 dark:border-[#0d4a34] bg-white dark:bg-[#06281c] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-[#093727] transition-colors"
               aria-label="Previous page"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-4 h-4 text-slate-700 dark:text-emerald-200" />
             </button>
-            <div className="px-3 py-1 font-mono tabular-nums font-semibold text-slate-700 dark:text-slate-300">
+            <div className="px-3 py-1 font-mono tabular-nums font-bold text-slate-700 dark:text-[#c2f138]">
               {page} / {paginationInfo.totalPages}
             </div>
             <button
               onClick={() => setPage(p => Math.min(paginationInfo.totalPages, p + 1))}
               disabled={page >= paginationInfo.totalPages}
-              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              className="p-1.5 rounded-xl border border-slate-200 dark:border-[#0d4a34] bg-white dark:bg-[#06281c] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-[#093727] transition-colors"
               aria-label="Next page"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4 text-slate-700 dark:text-emerald-200" />
             </button>
           </div>
         </div>
@@ -526,18 +522,18 @@ export const Transactions: React.FC = () => {
       {deletingId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs"
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"
             onClick={() => setDeletingId(null)}
           />
-          <div className="relative bg-white dark:bg-slate-900 rounded-2xl p-6 max-w-sm w-full border border-slate-200 dark:border-slate-800 shadow-xl z-10 animate-in fade-in zoom-in-95">
+          <div className="relative bg-white dark:bg-[#06281c] rounded-2xl p-6 max-w-sm w-full border border-slate-200 dark:border-[#0d4a34] shadow-xl z-10 animate-in fade-in zoom-in-95">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">Confirm Deletion</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-              Are you sure you want to delete transaction #{deletingId}? This action will permanently remove it from your balance and recalculate your budgets.
+            <p className="text-xs text-slate-500 dark:text-emerald-300/80 mt-2">
+              Are you sure you want to delete transaction #{deletingId}? This action will permanently remove it from your balance.
             </p>
             <div className="mt-5 flex items-center justify-end gap-3">
               <button
                 onClick={() => setDeletingId(null)}
-                className="px-3.5 py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                className="px-3.5 py-2 text-xs font-semibold text-slate-600 dark:text-emerald-300 hover:bg-slate-100 dark:hover:bg-[#0d4a34] rounded-lg transition-colors"
               >
                 Cancel
               </button>
@@ -546,7 +542,7 @@ export const Transactions: React.FC = () => {
                   const target = transactions.find(t => t.id === deletingId);
                   if (deletingId) handleDelete(deletingId, target?.description || 'Transaction');
                 }}
-                className="px-4 py-2 text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white rounded-lg transition-colors shadow-sm"
+                className="px-4 py-2 text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white rounded-lg transition-colors shadow-sm"
               >
                 Delete Record
               </button>
